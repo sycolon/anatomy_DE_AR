@@ -11,6 +11,9 @@ const eslintConfig = defineConfig([
     ".next/**",
     "out/**",
     "build/**",
+    // Third-party decoder bundles are checked in verbatim and are not app code.
+    "public/basis/**",
+    "public/draco/**",
     "next-env.d.ts",
   ]),
 ]);

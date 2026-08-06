@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Cormorant_Garamond, DM_Sans } from "next/font/google";
+import { Cairo, Cormorant_Garamond, DM_Sans } from "next/font/google";
 import "./globals.css";
 
 const sans = DM_Sans({
@@ -12,6 +12,11 @@ const serif = Cormorant_Garamond({
   subsets: ["latin"],
 });
 
+const arabic = Cairo({
+  variable: "--font-arabic",
+  subsets: ["arabic"],
+});
+
 const OG_IMAGE = {
   url: "/og.jpg",
   width: 1200,
@@ -19,13 +24,6 @@ const OG_IMAGE = {
   alt: "An anatomical heart specimen floating above a plinth, beside the Anatomy Atelier wordmark",
 };
 
-/**
- * Absolute URLs for og:image and friends. Resolved per host so a preview
- * deployment does not advertise another origin's assets:
- *   1. NEXT_PUBLIC_SITE_URL — explicit override, wins everywhere
- *   2. VERCEL_PROJECT_PRODUCTION_URL — the project's stable production domain
- *   3. the original Cloudflare/OpenAI host
- */
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ??
   (process.env.VERCEL_PROJECT_PRODUCTION_URL
@@ -36,9 +34,9 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: "Anatomy Atelier — Learn anatomy like an artist",
   description:
-    "Explore medically detailed 3D organs — heart, brain, lungs, liver, kidneys, eye, intestine, pancreas, and skin — through an elegant, interactive anatomy atelier.",
+    "Explore medically detailed 3D organs and body systems — including the nervous system, muscular system, and human skeleton — through an elegant, interactive anatomy atelier in English, German, and Arabic.",
   applicationName: "Anatomy Atelier",
-  keywords: ["anatomy", "3D anatomy", "human body", "medical education", "interactive learning", "organs"],
+  keywords: ["anatomy", "3D anatomy", "human body", "medical education", "interactive learning", "organs", "Anatomie", "تشريح"],
   icons: {
     icon: [
       { url: "/favicon.svg", type: "image/svg+xml" },
@@ -75,7 +73,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${sans.variable} ${serif.variable}`}
+        className={`${sans.variable} ${serif.variable} ${arabic.variable}`}
       >
         {children}
       </body>

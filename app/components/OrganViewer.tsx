@@ -13,6 +13,7 @@ import {
   X,
 } from "lucide-react";
 import type { Hotspot, Organ } from "../lib/anatomy-data";
+import type { UIStrings } from "../lib/translations";
 import type { AnatomyViewer } from "../lib/three/viewer";
 
 type Props = {
@@ -21,9 +22,10 @@ type Props = {
   onAutoRotate: (enabled: boolean) => void;
   compare: boolean;
   onCompare: () => void;
+  strings: UIStrings;
 };
 
-export function OrganViewer({ organ, autoRotate, onAutoRotate, compare, onCompare }: Props) {
+export function OrganViewer({ organ, autoRotate, onAutoRotate, compare, onCompare, strings }: Props) {
   const mountRef = useRef<HTMLDivElement>(null);
   const viewerRef = useRef<AnatomyViewer | null>(null);
   const organRef = useRef(organ);
@@ -34,9 +36,6 @@ export function OrganViewer({ organ, autoRotate, onAutoRotate, compare, onCompar
   const [slowLoad, setSlowLoad] = useState(false);
   const [activeTool, setActiveTool] = useState<string | null>(null);
 
-  // A typical organ is ready well inside a second — flashing a loading panel for
-  // that reads as jank. It only appears if the fetch is genuinely slow; the flag
-  // is cleared by onLoading when the next load starts.
   useEffect(() => {
     if (!loading) return;
     const timer = window.setTimeout(() => setSlowLoad(true), 900);
@@ -90,8 +89,6 @@ export function OrganViewer({ organ, autoRotate, onAutoRotate, compare, onCompar
 
   useEffect(() => viewerRef.current?.setAutoRotate(autoRotate), [autoRotate]);
 
-  // The viewer drives the callout's position directly, so a spinning model
-  // never costs a React render.
   const calloutRef = useCallback((node: HTMLDivElement | null) => {
     viewerRef.current?.attachCallout(node);
   }, []);
@@ -112,13 +109,13 @@ export function OrganViewer({ organ, autoRotate, onAutoRotate, compare, onCompar
   };
 
   const tools = [
-    { id: "rotate", label: "Rotate", icon: RotateCcw },
-    { id: "zoom", label: "Zoom", icon: Search },
-    { id: "isolate", label: "Isolate", icon: CircleDashed },
-    { id: "section", label: "Cross-section", icon: ScanLine },
-    { id: "layers", label: "Layers", icon: Layers3 },
-    { id: "compare", label: "Compare", icon: Box },
-    { id: "reset", label: "Reset", icon: RotateCcw },
+    { id: "rotate", label: strings.toolRotate, icon: RotateCcw },
+    { id: "zoom", label: strings.toolZoom, icon: Search },
+    { id: "isolate", label: strings.toolIsolate, icon: CircleDashed },
+    { id: "section", label: strings.toolSection, icon: ScanLine },
+    { id: "layers", label: strings.toolLayers, icon: Layers3 },
+    { id: "compare", label: strings.toolCompare, icon: Box },
+    { id: "reset", label: strings.toolReset, icon: RotateCcw },
   ];
 
   return (
@@ -143,8 +140,8 @@ export function OrganViewer({ organ, autoRotate, onAutoRotate, compare, onCompar
       </div>
 
       <aside className="tip-note" aria-label="Viewer instructions">
-        <span><Sparkles size={15} /> Tip</span>
-        <p>Drag to rotate<br />Scroll to zoom<br />Click a dot to learn more</p>
+        <span><Sparkles size={15} /> {strings.tipTitle}</span>
+        <p>{strings.tipDrag}<br />{strings.tipScroll}<br />{strings.tipClickDot}</p>
       </aside>
 
       {selected && (
@@ -159,7 +156,6 @@ export function OrganViewer({ organ, autoRotate, onAutoRotate, compare, onCompar
         </div>
       )}
 
-      {/* Screen-reader equivalent of the dots, which live in the canvas. */}
       <ul className="hotspot-index">
         {organ.hotspots.map((hotspot) => (
           <li key={hotspot.id}>{hotspot.label}: {hotspot.detail}</li>
@@ -169,18 +165,18 @@ export function OrganViewer({ organ, autoRotate, onAutoRotate, compare, onCompar
       {loading && slowLoad && (
         <div className="model-loader" role="status" aria-live="polite">
           <div className="loader-orbit"><Maximize2 size={20} /></div>
-          <strong>Preparing the {organ.name.toLowerCase()}</strong>
+          <strong>{strings.preparing} {organ.name}</strong>
           <span>{Math.max(8, Math.round(progress * 100))}%</span>
         </div>
       )}
 
       <button className="auto-rotate" type="button" onClick={() => onAutoRotate(!autoRotate)} aria-pressed={autoRotate}>
-        <RotateCcw size={14} /> Auto rotate
+        <RotateCcw size={14} /> {strings.autoRotate}
         <span className={`switch ${autoRotate ? "on" : ""}`}><i /></span>
       </button>
 
       <div className="view-caption">
-        <span>3D specimen · click a dot to explore</span>
+        <span>{strings.specimenCaption}</span>
         <strong>{organ.scientificName}</strong>
       </div>
     </section>

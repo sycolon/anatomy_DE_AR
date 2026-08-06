@@ -560,3 +560,119 @@ button.organ-card-image:focus-visible { outline: 2px solid #8b6fc4; outline-offs
 @media (prefers-reduced-motion: reduce) {
   *, *:before, *:after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
 }
+
+/* Language Switcher */
+.lang-switcher {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  background: rgba(255, 251, 244, 0.75);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 3px;
+  backdrop-filter: blur(8px);
+}
+
+.lang-btn {
+  border: 0;
+  background: transparent;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  line-height: 1;
+}
+
+.lang-btn:hover {
+  color: var(--ink);
+}
+
+.lang-btn.active {
+  background: var(--ink);
+  color: #fffaf4;
+  box-shadow: 0 2px 8px rgba(47, 42, 39, 0.15);
+}
+
+/* RTL Support */
+[dir="rtl"] {
+  font-family: var(--font-arabic), var(--font-sans), system-ui, sans-serif;
+}
+
+[dir="rtl"] .brand {
+  text-align: right;
+}
+
+[dir="rtl"] .brand sup {
+  padding-left: 0;
+  padding-right: 3px;
+}
+
+[dir="rtl"] .search-box {
+  justify-self: start;
+}
+
+[dir="rtl"] .info-panel {
+  text-align: right;
+}
+
+[dir="rtl"] .info-title-row {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .key-facts dt span {
+  display: inline-block;
+  margin-left: 4px;
+}
+
+[dir="rtl"] .tip-note {
+  right: 18px;
+  left: auto;
+}
+
+[dir="rtl"] .auto-rotate {
+  left: 18px;
+  right: auto;
+}
+
+[dir="rtl"] .view-caption {
+  right: 22px;
+  left: auto;
+  text-align: right;
+}
+
+[dir="rtl"] .viewer-tools {
+  left: 18px;
+  right: auto;
+}
+
+[dir="rtl"] .learning-cards article header {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .organ-item {
+  text-align: right;
+}
+
+[dir="rtl"] .organ-item .favorite {
+  margin-right: auto;
+  margin-left: 0;
+}
+
+@media (max-width: 760px) {
+  [dir="rtl"] .auto-rotate {
+    left: 10px;
+    right: auto;
+  }
+  [dir="rtl"] .view-caption {
+    right: 12px;
+    left: auto;
+  }
+  [dir="rtl"] .viewer-tools {
+    left: 10px;
+    right: 10px;
+  }
+}
+
