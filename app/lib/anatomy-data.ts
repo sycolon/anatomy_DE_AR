@@ -949,9 +949,9 @@ const baseOrganMetadata: Record<OrganId, { model: string; icon: string; accent: 
   intestine: { model: "/models/intestine.glb", icon: "§", accent: "#d78b77", illustrated: true },
   pancreas: { model: "/models/pancreas.glb", icon: "◈", accent: "#c69a5e", illustrated: true },
   skin: { model: "/models/skin.glb", icon: "▦", accent: "#c99277", illustrated: true },
-  "nervous-system": { model: "procedural:nervous-system", icon: "⚡", accent: "#9b7ec8", illustrated: true },
-  "muscular-system": { model: "procedural:muscular-system", icon: "⊕", accent: "#c05c5c", illustrated: true },
-  skeleton: { model: "procedural:skeleton", icon: "✦", accent: "#a09070", illustrated: true },
+  "nervous-system": { model: "/models/nervous-system.glb", icon: "⚡", accent: "#9b7ec8", illustrated: true },
+  "muscular-system": { model: "/models/muscular-system.glb", icon: "⊕", accent: "#c05c5c", illustrated: true },
+  skeleton: { model: "/models/skeleton.glb", icon: "✦", accent: "#a09070", illustrated: true },
 };
 
 export const organIds: OrganId[] = [
